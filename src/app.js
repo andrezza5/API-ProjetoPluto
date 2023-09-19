@@ -4,28 +4,30 @@ require("express-async-errors");
 const express = require("express");
 const { initDatabase } = require("./config/db");
 const cors = require("cors");
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('../swagger/swaggerDef');
 
-const experienciasRoute = require("./routes/experienciasRoute");
-const portfolioRoute = require("./routes/portfolioRoute");
-const informacoesRoute = require("./routes/informacoesRoute");
+const planosRoute = require("./routes/planosRoute");
+const unidadeRoute = require("./routes/unidadeRoute");
 const authRoute = require("./routes/authRoute");
-const { stack } = require("./routes/experienciasRoute");
+const { stack } = require("./routes/planosRoute");
 
 const app = express();
 
 const port = process.env.APP_PORT || 5000;
 
 app.get("/", (req, res) => {
-    res.send("Seja bem vindo à API do meu Site Pessoal!");
+    res.send("Seja bem vindo à API do projeto Pluto!");
 });
 
 app.use(cors());
 
 app.use(express.json());
 
-app.use("/api/experiencias", experienciasRoute);
-app.use("/api/portfolio", portfolioRoute);
-app.use("/api/informacoes", informacoesRoute);
+app.use('/api-docs-pluto', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+app.use("/api/planos", planosRoute);
+app.use("/api/unidade", unidadeRoute);
 app.use("/api/auth", authRoute);
 
 

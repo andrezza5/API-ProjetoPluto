@@ -1,3 +1,36 @@
+/**
+ * @swagger
+ * /api/login:
+ *   post:
+ *     summary: Realiza o login de um usuário
+ *     description: Realiza o login de um usuário com base no email e senha fornecidos.
+ *     parameters:
+ *       - in: body
+ *         name: credentials
+ *         description: Credenciais de login (email e senha)
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             email:
+ *               type: string
+ *             password:
+ *               type: string
+ *     responses:
+ *       200:
+ *         description: Login realizado com sucesso
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: Login realizado com sucesso!
+ *       401:
+ *         description: Usuário ou senha inválidos
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: Usuário ou senha inválidos!
+ */
+
 const usuariosRepository = require("../repositories/usuariosRepository");
 
 exports.login = async (req, res) => {
